@@ -64,11 +64,11 @@ class _MyAppState extends State<MyApp> {
                     decoration: InputDecoration(
                       border:
                       OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      labelText: "Masukkan nilai n",
+                      labelText: "Masukkan bilangan",
                     ),
                     controller: _controller,
                   ),
-                  Text('Bilangan prima dari 1 sampai n :'),
+                  Text('Bilangan prima dari 1 sampai ${_controller.text} :'),
                   Text(_text),
                 ],
               ),

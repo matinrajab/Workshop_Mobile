@@ -60,6 +60,52 @@ flutter:
     - assets/images/monkasel_1.jpg
     - assets/images/monkasel_2.jpg
     - assets/images/monkasel_3.jpg
+    - assets/images/monkasel_4.jpg
+    - assets/images/klenteng.jpg
+    - assets/images/klenteng_1.jpeg
+    - assets/images/klenteng_2.jpg
+    - assets/images/klenteng_3.jpg
+    - assets/images/klenteng_4.jpg
+    - assets/images/pahlawan.jpg
+    - assets/images/pahlawan_1.jpg
+    - assets/images/pahlawan_2.jpg
+    - assets/images/pahlawan_3.jpg
+    - assets/images/pahlawan_4.jpg
+    - assets/images/sampoerna.jpg
+    - assets/images/sampoerna_1.jpg
+    - assets/images/sampoerna_2.jpg
+    - assets/images/sampoerna_3.jpg
+    - assets/images/sampoerna_4.jpg
+    - assets/images/sby.jpg
+    - assets/images/sby_1.jpg
+    - assets/images/sby_2.jpg
+    - assets/images/sby_3.png
+    - assets/images/sby_4.jpg
+    - assets/images/ubud.jpg
+    - assets/images/ubud_1.jpg
+    - assets/images/ubud_2.jpg
+    - assets/images/ubud_3.jpg
+    - assets/images/ubud_4.jpg
+    - assets/images/canggu.jpg
+    - assets/images/canggu_1.jpg
+    - assets/images/canggu_2.jpg
+    - assets/images/canggu_3.jpg
+    - assets/images/canggu_4.jpg
+    - assets/images/kuta.jpg
+    - assets/images/kuta_1.jpg
+    - assets/images/kuta_2.jpg
+    - assets/images/kuta_3.jpg
+    - assets/images/kuta_4.jpg
+    - assets/images/borobudur.jpg
+    - assets/images/borobudur_1.png
+    - assets/images/borobudur_2.jpeg
+    - assets/images/borobudur_3.jpg
+    - assets/images/borobudur_4.jpg
+    - assets/images/malioboro.jpg
+    - assets/images/malioboro_1.jpg
+    - assets/images/malioboro_2.jpg
+    - assets/images/malioboro_3.jpg
+    - assets/images/malioboro_4.jpg
 
   fonts:
     - family: Lobster
