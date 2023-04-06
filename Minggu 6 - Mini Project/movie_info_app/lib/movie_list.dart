@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_info_app/detail_screen.dart';
 import 'package:movie_info_app/item_card.dart';
 import 'package:movie_info_app/model/movie.dart';
-import 'package:movie_info_app/provider/done_movie_provider.dart';
+import 'package:movie_info_app/provider/favorite_movie_provider.dart';
 import 'package:provider/provider.dart';
 
 class MovieList extends StatefulWidget {

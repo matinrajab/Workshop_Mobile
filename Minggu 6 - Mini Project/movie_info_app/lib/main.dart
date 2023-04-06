@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_info_app/main_screen.dart';
-import 'package:movie_info_app/provider/done_movie_provider.dart';
+import 'package:movie_info_app/provider/favorite_movie_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {

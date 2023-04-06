@@ -38,7 +38,7 @@ class ItemCard extends StatelessWidget {
                     data: ThemeData(unselectedWidgetColor: Colors.white),
                     child: Checkbox(
                       activeColor: Colors.white,
-                      checkColor: Colors.blueAccent,
+                      checkColor: Colors.black,
                       value: favorite,
                       onChanged: onCheckboxClick,
                     ),

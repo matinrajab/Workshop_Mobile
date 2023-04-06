@@ -4,14 +4,14 @@ import 'package:movie_info_app/background_color.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_info_app/detail_screen.dart';
 import 'package:movie_info_app/model/movie.dart';
-import 'package:movie_info_app/provider/done_movie_provider.dart';
+import 'package:movie_info_app/provider/favorite_movie_provider.dart';
 
 class FavoriteMovieList extends StatelessWidget {
   const FavoriteMovieList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Movie> doneMovieList = Provider.of<FavoriteMovieProvider>(
+    final List<Movie> favoriteMovieList = Provider.of<FavoriteMovieProvider>(
       context,
       listen: false,
     ).favoriteMovieList;
@@ -33,9 +33,9 @@ class FavoriteMovieList extends StatelessWidget {
                 crossAxisSpacing: 20,
                 childAspectRatio: 0.6,
               ),
-              itemCount: doneMovieList.length,
+              itemCount: favoriteMovieList.length,
               itemBuilder: (context, index) {
-                final Movie movie = doneMovieList[index];
+                final Movie movie = favoriteMovieList[index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(context,

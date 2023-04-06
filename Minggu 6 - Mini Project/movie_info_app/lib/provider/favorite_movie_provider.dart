@@ -6,8 +6,8 @@ class FavoriteMovieProvider extends ChangeNotifier{
 
   List<Movie> get favoriteMovieList => _favoriteMovieList;
 
-  void complete(Movie place, bool isDone){
-    isDone ? _favoriteMovieList.add(place) : _favoriteMovieList.remove(place);
+  void complete(Movie movie, bool favorite){
+    favorite ? _favoriteMovieList.add(movie) : _favoriteMovieList.remove(movie);
     notifyListeners();
   }
 }
