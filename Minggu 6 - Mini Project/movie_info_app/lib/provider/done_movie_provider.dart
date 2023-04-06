@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:movie_info_app/model/movie.dart';
 
-class DoneMovieProvider extends ChangeNotifier{
-  final List<Movie> _doneMovieList = [];
+class FavoriteMovieProvider extends ChangeNotifier{
+  final List<Movie> _favoriteMovieList = [];
 
-  List<Movie> get doneMovieList => _doneMovieList;
+  List<Movie> get favoriteMovieList => _favoriteMovieList;
 
   void complete(Movie place, bool isDone){
-    isDone ? _doneMovieList.add(place) : _doneMovieList.remove(place);
+    isDone ? _favoriteMovieList.add(place) : _favoriteMovieList.remove(place);
     notifyListeners();
   }
 }

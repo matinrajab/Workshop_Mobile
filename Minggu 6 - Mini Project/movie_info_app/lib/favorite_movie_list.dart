@@ -6,15 +6,15 @@ import 'package:movie_info_app/detail_screen.dart';
 import 'package:movie_info_app/model/movie.dart';
 import 'package:movie_info_app/provider/done_movie_provider.dart';
 
-class DoneMovieList extends StatelessWidget {
-  const DoneMovieList({Key? key}) : super(key: key);
+class FavoriteMovieList extends StatelessWidget {
+  const FavoriteMovieList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Movie> doneMovieList = Provider.of<DoneMovieProvider>(
+    final List<Movie> doneMovieList = Provider.of<FavoriteMovieProvider>(
       context,
       listen: false,
-    ).doneMovieList;
+    ).favoriteMovieList;
 
     return Scaffold(
       appBar: AppBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_info_app/appbar_color.dart';
 import 'package:movie_info_app/background_color.dart';
-import 'package:movie_info_app/done_movie_list.dart';
+import 'package:movie_info_app/favorite_movie_list.dart';
 import 'package:movie_info_app/movie_list.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const DoneMovieList();
+                  return const FavoriteMovieList();
                 }),
               );
             },
