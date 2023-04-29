@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<FavoriteMovieProvider>(
       create: (context) => FavoriteMovieProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_info_app/background_color.dart';
 import 'package:movie_info_app/model/movie.dart';
+import 'package:movie_info_app/provider/favorite_movie_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key, required this.movie}) : super(key: key);
@@ -11,279 +12,204 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            BackgroundColor(),
-            ListView(children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(bottom: 16.0),
-                    child: Stack(
-                      children: <Widget>[
-                        ShaderMask(
-                          shaderCallback: (rectangle){
-                            return LinearGradient(
-                              colors: [Colors.grey, Colors.transparent],
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter
-                            ).createShader(Rect.fromLTRB(0, 0, rectangle.width, rectangle.height));
-                          },
-                          child: Image.network(
-                            movie.poster,
-                          ),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color.fromARGB(255, 30, 39, 98),
+                Color.fromARGB(255, 12, 29, 59),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+          ),
+          child: ListView(children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom: 16.0),
+                  child: Stack(
+                    children: <Widget>[
+                      ShaderMask(
+                        shaderCallback: (rectangle) {
+                          return LinearGradient(
+                                  colors: [Colors.grey, Colors.transparent],
+                                  begin: Alignment.center,
+                                  end: Alignment.bottomCenter)
+                              .createShader(Rect.fromLTRB(
+                                  0, 0, rectangle.width, rectangle.height));
+                        },
+                        child: Image.network(
+                          movie.poster,
                         ),
-                        Container(
-                          padding: EdgeInsets.all(16.0),
-                          height: 530,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                movie.title,
-                                style: TextStyle(
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16.0),
+                        height: 530,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              movie.title,
+                              style: TextStyle(
                                   fontSize: 34,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            buildGenre(),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    movie.duration,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(top: 8, bottom: 8),
-                                    padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(width: 1.0, color: Colors.white)
-                                    ),
-                                    child: Text(movie.genre1, style: TextStyle(color: Colors.white, fontSize: 12),),
+                                Container(
+                                  padding: EdgeInsets.all(8),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                      Icon(Icons.star, size: 16, color: Colors.grey),
+                                    ],
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.all(8),
-                                    padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(width: 1.0, color: Colors.white)
-                                    ),
-                                    child: Text(movie.genre2, style: TextStyle(color: Colors.white, fontSize: 12),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    child: Text(
-                                      movie.duration,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                      ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(8),
+                                  child: Text(
+                                    movie.rating,
+                                    style: TextStyle(
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  Container(
-
-                                    padding: EdgeInsets.all(8),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11),),
-                                        Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11),),
-                                        Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11),),
-                                        Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11),),
-                                        Icon(Icons.star, size: 16, color: Colors.grey),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(8),
-                                    child: Text(
-                                      movie.rating,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      movie.story,
-                      style: TextStyle(
-                        color: Colors.white
                       ),
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_rounded,
+                              color: Colors.white,
+                            )),
+                          Consumer<FavoriteMovieProvider>(
+                            builder: (context, favoriteMovieProvider, _) =>
+                              IconButton(
+                                onPressed: () {
+                                  movie.isFavorite = movie.isFavorite ? false : true;
+                                  favoriteMovieProvider.complete(movie, movie.isFavorite);
+                                },
+                                icon: movie.isFavorite ? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border, color: Colors.white,)
+                              )
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "Cast",
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    movie.story,
+                    style: TextStyle(color: Colors.white),
                   ),
-                  Container(
-                    height: 100,
-                    margin: EdgeInsets.all(10),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  movie.img1,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                movie.cast1,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  movie.img2,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                movie.cast2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  movie.img3,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                movie.cast3,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  movie.img4,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                movie.cast4,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  movie.img5,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 100,
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                movie.cast5,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Cast",
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ])
-          ],
+                ),
+                buildCast(),
+              ],
+            ),
+          ]),
         ),
       ),
+    );
+  }
+
+  Widget buildGenre() {
+    return Row(
+      children: <Widget>[genre(movie.genre1), genre(movie.genre2)],
+    );
+  }
+
+  Widget genre(String genre) {
+    return Container(
+      margin: EdgeInsets.only(top: 8, bottom: 8, right: 8),
+      padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(width: 1.0, color: Colors.white)),
+      child: Text(
+        genre,
+        style: TextStyle(color: Colors.white, fontSize: 12),
+      ),
+    );
+  }
+
+  Widget buildCast() {
+    return Container(
+      height: 100,
+      margin: EdgeInsets.all(10),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          actor(movie.img1, movie.cast1),
+          actor(movie.img2, movie.cast2),
+          actor(movie.img3, movie.cast3),
+          actor(movie.img4, movie.cast4),
+          actor(movie.img5, movie.cast5),
+        ],
+      ),
+    );
+  }
+
+  Widget actor(String image, String cast) {
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 50,
+          width: 50,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: Image.network(
+              image,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Container(
+          width: 100,
+          height: 50,
+          padding: EdgeInsets.all(10),
+          child: Text(
+            cast,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        )
+      ],
     );
   }
 }

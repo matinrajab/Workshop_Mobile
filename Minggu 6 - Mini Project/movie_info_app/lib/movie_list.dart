@@ -150,22 +150,9 @@ class _MovieListState extends State<MovieList> {
                 return DetailScreen(movie: movie);
               }));
             },
-            child: Consumer<FavoriteMovieProvider>(
-              builder: (context, FavoriteMovieProvider data, widget) {
-                return ItemCard(
-                  movie: movie,
-                  favorite: data.favoriteMovieList.contains(movie),
-                  onCheckboxClick: (bool? value) {
-                    setState(() {
-                      if (value != null) {
-                        value
-                            ? data.favoriteMovieList.add(movie)
-                            : data.favoriteMovieList.remove(movie);
-                      }
-                    });
-                  },
-                );
-              },
+            child: ItemCard(
+              movie: movie,
+              favorite: movie.isFavorite,
             ),
           );
         },

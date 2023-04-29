@@ -16,6 +16,7 @@ class Movie {
   String cast3;
   String cast4;
   String cast5;
+  bool isFavorite;
 
   Movie({
     required this.title,
@@ -35,6 +36,7 @@ class Movie {
     required this.cast3,
     required this.cast4,
     required this.cast5,
+    this.isFavorite = false,
   });
 }
 

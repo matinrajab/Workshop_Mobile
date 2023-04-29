@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie_info_app/model/movie.dart';
+import 'package:movie_info_app/provider/favorite_movie_provider.dart';
+import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
   final Movie movie;
   final bool favorite;
-  final Function(bool? value) onCheckboxClick;
 
   const ItemCard(
       {required this.movie,
-      required this.favorite,
-      required this.onCheckboxClick});
+      required this.favorite,});
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,15 @@ class ItemCard extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Theme(
-                    data: ThemeData(unselectedWidgetColor: Colors.white),
-                    child: Checkbox(
-                      activeColor: Colors.white,
-                      checkColor: Colors.black,
-                      value: favorite,
-                      onChanged: onCheckboxClick,
-                    ),
-                  ),
+                  child: Consumer<FavoriteMovieProvider>(
+                    builder: (context, favoriteMovieProvider, _) => IconButton(
+                      onPressed: (){
+                        movie.isFavorite = movie.isFavorite ? false : true;
+                        favoriteMovieProvider.complete(movie, movie.isFavorite);
+                      },
+                      icon: movie.isFavorite ? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border, color: Colors.white,)
+                    )
+                  )
                 ),
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_info_app/appbar_color.dart';
-import 'package:movie_info_app/background_color.dart';
+import 'package:movie_info_app/item_card.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_info_app/detail_screen.dart';
 import 'package:movie_info_app/model/movie.dart';
@@ -19,14 +18,21 @@ class FavoriteMovieList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Favorite"),
-        flexibleSpace: AppBarColor(),
+        backgroundColor: Color.fromARGB(255, 27, 52, 108),
       ),
-      body: Stack(
-        children: <Widget>[
-          BackgroundColor(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: GridView.builder(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 30, 39, 98),
+              Color.fromARGB(255, 12, 29, 59),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Consumer<FavoriteMovieProvider>(
+            builder: (context, favoriteMovieProvider, _) => GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
@@ -43,43 +49,20 @@ class FavoriteMovieList extends StatelessWidget {
                       return DetailScreen(movie: movie);
                     }));
                   },
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            width: 200,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                movie.poster,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Text(
-                              movie.title,
-                              style: TextStyle(
-                                  fontSize: 14.0, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: Dismissible(
+                    onDismissed: (direction){
+                      movie.isFavorite = false;
+                      favoriteMovieProvider.complete(movie, movie.isFavorite);
+                    },
+                    key: Key(index.toString()),
+                    direction: DismissDirection.horizontal,
+                    child: ItemCard(movie: movie, favorite: movie.isFavorite)
                   ),
                 );
               },
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
