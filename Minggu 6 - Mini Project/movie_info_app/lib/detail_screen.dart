@@ -15,7 +15,7 @@ class DetailScreen extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
                 Color.fromARGB(255, 30, 39, 98),
                 Color.fromARGB(255, 12, 29, 59),
@@ -25,110 +25,116 @@ class DetailScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(bottom: 16.0),
-                  child: Stack(
-                    children: <Widget>[
-                      ShaderMask(
-                        shaderCallback: (rectangle) {
-                          return LinearGradient(
-                                  colors: [Colors.grey, Colors.transparent],
-                                  begin: Alignment.center,
-                                  end: Alignment.bottomCenter)
-                              .createShader(Rect.fromLTRB(
-                                  0, 0, rectangle.width, rectangle.height));
-                        },
-                        child: Image.network(
-                          movie.poster,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(16.0),
-                        height: 530,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              movie.title,
-                              style: TextStyle(
-                                  fontSize: 34,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            buildGenre(),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    movie.duration,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
-                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
-                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
-                                      Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
-                                      Icon(Icons.star, size: 16, color: Colors.grey),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(
-                                    movie.rating,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Consumer<FavoriteMovieProvider>(
+                  builder: (context, favoriteMovieProvider, _) => GestureDetector(
+                    onDoubleTap: (){
+                      movie.isFavorite = movie.isFavorite ? false : true;
+                      favoriteMovieProvider.complete(movie, movie.isFavorite);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 16.0),
+                      child: Stack(
                         children: <Widget>[
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
+                          ShaderMask(
+                            shaderCallback: (rectangle) {
+                              return const LinearGradient(
+                                      colors: [Colors.grey, Colors.transparent],
+                                      begin: Alignment.center,
+                                      end: Alignment.bottomCenter)
+                                  .createShader(Rect.fromLTRB(
+                                      0, 0, rectangle.width, rectangle.height));
                             },
-                            icon: Icon(
-                              Icons.arrow_back_rounded,
-                              color: Colors.white,
-                            )),
-                          Consumer<FavoriteMovieProvider>(
-                            builder: (context, favoriteMovieProvider, _) =>
+                            child: Image.network(
+                              movie.poster,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16.0),
+                            height: 530,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  movie.title,
+                                  style: const TextStyle(
+                                      fontSize: 34,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                buildGenre(),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      movie.duration,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child: const Row(
+                                        children: <Widget>[
+                                          Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                          Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                          Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                          Icon(Icons.star, size: 16, color: Color.fromARGB(255, 227, 185, 11)),
+                                          Icon(Icons.star, size: 16, color: Colors.grey),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        movie.rating,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
                               IconButton(
                                 onPressed: () {
-                                  movie.isFavorite = movie.isFavorite ? false : true;
-                                  favoriteMovieProvider.complete(movie, movie.isFavorite);
+                                  Navigator.pop(context);
                                 },
-                                icon: movie.isFavorite ? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border, color: Colors.white,)
+                                icon: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Colors.white,
+                                )),
+                              Consumer<FavoriteMovieProvider>(
+                                builder: (context, favoriteMovieProvider, _) =>
+                                  IconButton(
+                                    onPressed: () {
+                                      movie.isFavorite = movie.isFavorite ? false : true;
+                                      favoriteMovieProvider.complete(movie, movie.isFavorite);
+                                    },
+                                    icon: movie.isFavorite ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_border, color: Colors.white,)
+                                  )
                               )
+                            ],
                           )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     movie.story,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Column(
                     children: <Widget>[
                       Text(
                         "Cast",
@@ -154,14 +160,14 @@ class DetailScreen extends StatelessWidget {
 
   Widget genre(String genre) {
     return Container(
-      margin: EdgeInsets.only(top: 8, bottom: 8, right: 8),
-      padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
+      margin: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
+      padding: const EdgeInsets.fromLTRB(6, 3, 6, 3),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 1.0, color: Colors.white)),
       child: Text(
         genre,
-        style: TextStyle(color: Colors.white, fontSize: 12),
+        style: const TextStyle(color: Colors.white, fontSize: 12),
       ),
     );
   }
@@ -169,7 +175,7 @@ class DetailScreen extends StatelessWidget {
   Widget buildCast() {
     return Container(
       height: 100,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -186,7 +192,7 @@ class DetailScreen extends StatelessWidget {
   Widget actor(String image, String cast) {
     return Column(
       children: <Widget>[
-        Container(
+        SizedBox(
           height: 50,
           width: 50,
           child: ClipRRect(
@@ -200,11 +206,11 @@ class DetailScreen extends StatelessWidget {
         Container(
           width: 100,
           height: 50,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Text(
             cast,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),

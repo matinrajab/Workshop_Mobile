@@ -17,13 +17,13 @@ class FavoriteMovieList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favorite"),
-        backgroundColor: Color.fromARGB(255, 27, 52, 108),
+        title: const Text("Favorite"),
+        backgroundColor: const Color.fromARGB(255, 27, 52, 108),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
               Color.fromARGB(255, 30, 39, 98),
               Color.fromARGB(255, 12, 29, 59),
@@ -33,7 +33,7 @@ class FavoriteMovieList extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Consumer<FavoriteMovieProvider>(
             builder: (context, favoriteMovieProvider, _) => GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,

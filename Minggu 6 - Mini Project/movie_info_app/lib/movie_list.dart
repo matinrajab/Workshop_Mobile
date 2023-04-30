@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_info_app/detail_screen.dart';
 import 'package:movie_info_app/item_card.dart';
 import 'package:movie_info_app/model/movie.dart';
-import 'package:movie_info_app/provider/favorite_movie_provider.dart';
-import 'package:provider/provider.dart';
 
-class MovieList extends StatefulWidget {
-  const MovieList({Key? key}) : super(key: key);
+class MovieList extends StatelessWidget {
+  MovieList({Key? key}) : super(key: key);
 
-  @override
-  State<MovieList> createState() => _MovieListState();
-}
-
-class _MovieListState extends State<MovieList> {
   final List<Movie> movieList = [
     Movie(
         title: "Black Panther",
@@ -136,7 +128,7 @@ class _MovieListState extends State<MovieList> {
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: GridView.builder(
         itemCount: movieList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
@@ -144,16 +136,9 @@ class _MovieListState extends State<MovieList> {
         ),
         itemBuilder: (context, index) {
           final Movie movie = movieList[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreen(movie: movie);
-              }));
-            },
-            child: ItemCard(
-              movie: movie,
-              favorite: movie.isFavorite,
-            ),
+          return ItemCard(
+            movie: movie,
+            favorite: movie.isFavorite,
           );
         },
       ),
